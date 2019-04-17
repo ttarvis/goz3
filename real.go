@@ -18,7 +18,7 @@ type Real struct {
 	*AST
 }
 
-// NewReal makes and returns an Real or an error
+// NewReal makes and returns a Real or an error
 func (ctx *Context) NewReal(name interface{}) (*Real, error) {
 	realSort := ctx.MakeReal();
 	var varSym *Symbol;

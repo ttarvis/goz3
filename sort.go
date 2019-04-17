@@ -42,3 +42,12 @@ func (ctx *Context) MakeReal() *Sort {
 
 	return realSort;
 }
+
+func (ctx *Context) MakeBV(sz uint) *Sort {
+	bvSort := &Sort{
+		Ctx:	ctx.Z3Context,
+		Z3Sort:	C.Z3_mk_bv_sort(ctx.Z3Context, C.uint(sz)),
+	}
+
+	return bvSort;
+}
