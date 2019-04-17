@@ -1,0 +1,8 @@
+package z3
+
+import "testing"
+
+// TestDeMorgan tests the negation of De Morgan's Laws
+func TestNot(t *testing.T) {
+	
+}
