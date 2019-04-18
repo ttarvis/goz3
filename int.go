@@ -36,6 +36,20 @@ func (ctx *Context) NewInt(name interface{}) (*Int, error) {
 	return intConst, nil;
 }
 
+// MkInt takes i and converts it to an Int
+func (ctx *Context) MkInt(i int) *Int {
+        intSort := ctx.MakeInt();
+
+        val := &Int{
+                &AST{
+                        Z3Context:      ctx.Z3Context,
+                        Z3AST:          C.Z3_mk_int(ctx.Z3Context, C.int(i), intSort.Z3Sort),
+                },
+        }
+
+        return val;
+}
+
 // Add adds a number of Int types together
 func (i *Int) Add(ints ...*Int) *Int {
 	// make an array of C.Z3_ast of length of operands + 1 to include the Int used in method call
@@ -203,4 +217,17 @@ func (i *Int) IntToReal() *Real {
 	}
 
 	return val;
+}
+
+// IntToBV returns a BV (bit vector) from n and i where the i'th bit
+// (counting from 0 to n-1) is 1 if (t1 div 2^i) mod 2 is 1
+func (i *Int) IntToBV(n uint) *BV {
+	v := &BV{
+		&AST{
+			Z3Context:	i.Z3Context,
+			Z3AST:		C.Z3_mk_int2bv(i.Z3Context, C.uint(n), i.Z3AST),
+		},
+	}
+
+	return v;
 }

@@ -36,6 +36,20 @@ func (ctx *Context) NewBV(name interface{}, sz uint) (*BV, error) {
 	return bvConst, nil;
 }
 
+// MkBV makes a bit vector from i of size sz. I dont know what happens if 2^sz can't fit i
+func (ctx *Context) MkBV(i int, sz uint) *BV {
+	bvSort := ctx.MakeBV(sz);
+
+	val := &BV{
+		&AST{
+			Z3Context:	ctx.Z3Context,
+			Z3AST:		C.Z3_mk_int(ctx.Z3Context, C.int(i), bvSort.Z3Sort),
+		},
+	}
+
+	return val;
+}
+
 // Not is a bitwise negation of a bit vector
 func (bv *BV) Not() *BV {
 	v := &BV{
