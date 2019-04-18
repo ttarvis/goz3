@@ -6,33 +6,26 @@ import (
 	"github.com/goz3"
 )
 
-func bvDiv() {
+func alg1() {
 	cfg := z3.NewConfig();
-	ctx := z3.NewContext(cfg)
-	
-	defer cfg.Close();
-	a, err := ctx.NewBV("a", 32);
-	b, err := ctx.NewBV("b", 32);
+	ctx := z3.NewContext(cfg);
 
-	two := ctx.MkBV(2, 32);
+	defer cfg.Close();
+	a := ctx.MkInt(10);
+	b, err := ctx.NewInt("b");
 
 	if err != nil {
 		fmt.Errorf("error: %s\n", err);
 	}
 
-	uAvg := a.Add(b).Udiv(two);
+	c := ctx.MkInt(20);
 
-	fmt.Println(uAvg);
+	ab := a.Add(b);
 
-	sAvg := a.Add(b).Sdiv(two);
-
-	fmt.Println(sAvg);
+	conjecture := ab.LT(c);
 
 	solver := z3.NewSolver(ctx);
 
-	conjecture := a.Ugt(uAvg);
-
-	fmt.Println("conjecture", conjecture);
 	solver.Assert(conjecture);
 
 	result, err := solver.Check();
@@ -47,7 +40,7 @@ func bvDiv() {
 
 	for name, value := range consts {
 		fmt.Printf("%s = %s\n", name, value);
-	} 
+	}
 
 	solver.Close();
 	ctx.Close();

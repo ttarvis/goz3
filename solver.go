@@ -64,3 +64,12 @@ func (s *Solver) Close() error {
 	return nil;
 }
 
+// Model returns the last model from Check
+func (s *Solver) Model() *Model {
+	model := &Model{
+		Z3Context:	s.Z3Context,
+		Z3Model:	C.Z3_solver_get_model(s.Z3Context, s.Z3Solver),
+	}
+
+	return model;
+}
