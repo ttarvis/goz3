@@ -149,14 +149,38 @@ func (arg1 *Int) Mod(arg2 *Int) *Int {
 }
 
 // Rem returns arg1 rem arg2
-// todo: finish
 func (arg1 *Int) Rem(arg2 *Int) *Int {
-	return nil;
+	val := &Int{
+		&AST{
+			Z3Context:	arg1.Z3Context,
+			Z3AST:		C.Z3_mk_rem(arg1.Z3Context, arg1.Z3AST, arg2.Z3AST),
+		},
+	}
+
+	return val;
 }
 
 // Power returns arg1 ^ arg2
 func (arg1 *Int) Power(arg2 *Int) *Int {
-	return nil;
+	val := &Int{
+		&AST{
+			Z3Context:	arg1.Z3Context,
+			Z3AST:		C.Z3_mk_power(arg1.Z3Context, arg1.Z3AST, arg2.Z3AST),
+		},
+	}
+
+	return val;
+}
+
+func (t1 *Int) EQ(t2 *Int) *Int {
+	val := &Int{
+		&AST{
+			Z3Context:	t1.Z3Context,
+			Z3AST:		C.Z3_mk_eq(t1.Z3Context, t1.Z3AST, t2.Z3AST),
+		},
+	}
+
+	return val;
 }
 
 // LT returns node representing t1 < t2
