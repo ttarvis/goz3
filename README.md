@@ -1,5 +1,5 @@
 # goz3
-goze is a Z3 binding for Go
+goze is a Z3 binding for Go.
 
 ## More documentation coming soon
 as soon as code is completed

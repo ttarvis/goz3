@@ -50,6 +50,36 @@ func (ctx *Context) MkBV(i int, sz uint) *BV {
 	return val;
 }
 
+// EQ returns a value that is true if l and r are equal
+func (l *BV) EQ(r *BV) *Bool {
+	val := &Bool{
+		&AST{
+			Z3Context:	l.Z3Context,
+			Z3AST:		C.Z3_mk_eq(l.Z3Context, l.Z3AST, r.Z3AST),
+		},
+	}
+
+	return val;
+}
+
+// NE returns a value that is true if l and r are not equal
+func (l *BV) NE(rs ...*BV) *Bool {
+	args := make([]C.Z3_ast, len(rs)+1);
+	args[0] = l.Z3AST;
+	for i, r := range rs {
+		args[i+1] = r.Z3AST;
+	}
+
+	val := &Bool{
+		&AST{
+			Z3Context:	l.Z3Context,
+			Z3AST:		C.Z3_mk_distinct(l.Z3Context, C.uint(len(args)), &args[0]),
+		},
+	}
+
+	return val;
+}
+
 // Not is a bitwise negation of a bit vector
 func (bv *BV) Not() *BV {
 	v := &BV{

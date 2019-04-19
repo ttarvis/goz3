@@ -187,7 +187,8 @@ func (l *Bool) Eq(r *Bool) *Bool {
 	return val;
 }
 
-//func (l *Bool) Neq(r *Bool) *Bool
+// NE returns
+//func (l *Bool) NE(r *Bool) *Bool
 
 // Xor returns a Bool is true if l xor r
 func (l *Bool) Xor(r *Bool) *Bool {
