@@ -4,6 +4,8 @@ goze is a Z3 binding for Go.
 ## More documentation coming soon
 as soon as code is completed
 
+See [Godoc]: https://godoc.org/github.com/ttarvis/goz3
+
 ## Installation
 ### Requirements
 * A Go compiler
